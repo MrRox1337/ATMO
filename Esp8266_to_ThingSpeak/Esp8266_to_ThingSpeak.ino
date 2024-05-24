@@ -20,15 +20,15 @@ NTPClient: Retrieves the current time from an NTP server.
 
 DHT20 DHT;
 
-const char* ssid = "WIFI NAME";         // Replace with your network SSID (name).
-const char* password = "WIFI PASS"; // Replace with your network password.
+const char* ssid = "**********";         // Replace with your network SSID (name)
+const char* password = "***********"; // Replace with your network password
 
-unsigned long myChannelNumber = 123456789;  // Replace with your ThingSpeak Channel Number.
-const char* myWriteAPIKey = "API KEY";           // Replace with your ThingSpeak Write API Key.
+unsigned long myChannelNumber = 012345;  // Replace with your ThingSpeak Channel Number
+const char* myWriteAPIKey = "*****************";           // Replace with your ThingSpeak Write API Key
 
 WiFiClient client;
 WiFiUDP ntpUDP;
-NTPClient timeClient(ntpUDP, "pool.ntp.org", 0, 60000); // Update every 60 seconds.
+NTPClient timeClient(ntpUDP, "pool.ntp.org", 0, 60000); // Update every 60 seconds
 
 uint8_t count = 0;
 
@@ -41,7 +41,7 @@ void setup()
   Serial.println();
 
   Wire.begin();
-  DHT.begin();    //  ESP8266 default pins.
+  DHT.begin();    //  ESP8266 default pins
 
   WiFi.begin(ssid, password);
   Serial.print("Connecting to Wi-Fi");
@@ -55,7 +55,7 @@ void setup()
   ThingSpeak.begin(client);
 
   timeClient.begin();
-  timeClient.setTimeOffset(0); // Adjust according to your timezone offset in seconds.
+  timeClient.setTimeOffset(0); // Adjust according to your timezone offset in seconds
 
   delay(1000);
 }
@@ -75,18 +75,18 @@ void loop()
     {
       count = 0;
       Serial.println();
-      Serial.println("Type\tHumidity (%)\tTemp (°C)\tTime (µs)\tStatus");
+      Serial.println("Type\tHumidity (%)\tTemp (°C)");
     }
     count++;
 
-    float officeHumidity = DHT.getHumidity();
-    float officeTemp = DHT.getTemperature();
+    float OfficeHumidity = DHT.getHumidity();
+    float OfficeTemperature = DHT.getTemperature();
 
     Serial.print("DHT20 \t");
     //  DISPLAY DATA, sensor has only one decimal.
-    Serial.print(officeHumidity, 1);
+    Serial.print(OfficeHumidity, 1);
     Serial.print("\t\t");
-    Serial.print(officeTemp, 1);
+    Serial.print(OfficeTemperature, 1);
     Serial.print("\t\t");
     Serial.print(stop - start);
     Serial.print("\t\t");
@@ -120,8 +120,8 @@ void loop()
     Serial.print("\n");
 
     // Send data to ThingSpeak
-    ThingSpeak.setField(1, officeHumidity);
-    ThingSpeak.setField(2, officeTemp);
+    ThingSpeak.setField(1, OfficeHumidity);
+    ThingSpeak.setField(2, OfficeTemperature);
 
     int x = ThingSpeak.writeFields(myChannelNumber, myWriteAPIKey);
     if(x == 200)
