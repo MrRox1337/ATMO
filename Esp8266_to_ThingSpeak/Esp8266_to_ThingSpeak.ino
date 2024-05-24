@@ -20,11 +20,11 @@ NTPClient: Retrieves the current time from an NTP server.
 
 DHT20 DHT;
 
-const char* ssid = "your_SSID";         // Replace with your network SSID (name).
-const char* password = "your_PASSWORD"; // Replace with your network password.
+const char* ssid = "WIFI NAME";         // Replace with your network SSID (name).
+const char* password = "WIFI PASS"; // Replace with your network password.
 
-unsigned long myChannelNumber = YOUR_CHANNEL_NUMBER;  // Replace with your ThingSpeak Channel Number.
-const char* myWriteAPIKey = "YOUR_API_KEY";           // Replace with your ThingSpeak Write API Key.
+unsigned long myChannelNumber = 123456789;  // Replace with your ThingSpeak Channel Number.
+const char* myWriteAPIKey = "API KEY";           // Replace with your ThingSpeak Write API Key.
 
 WiFiClient client;
 WiFiUDP ntpUDP;
@@ -79,16 +79,14 @@ void loop()
     }
     count++;
 
-    float humidity = DHT.getHumidity();
-    float outdoorTemp = DHT.getTemperature();
-    float indoorTemp = 24.0; // Fixed indoor temperature.
-    String dateTime = timeClient.getFormattedTime(); // Format as HH:MM:SS
+    float officeHumidity = DHT.getHumidity();
+    float officeTemp = DHT.getTemperature();
 
     Serial.print("DHT20 \t");
     //  DISPLAY DATA, sensor has only one decimal.
-    Serial.print(humidity, 1);
+    Serial.print(officeHumidity, 1);
     Serial.print("\t\t");
-    Serial.print(outdoorTemp, 1);
+    Serial.print(officeTemp, 1);
     Serial.print("\t\t");
     Serial.print(stop - start);
     Serial.print("\t\t");
@@ -122,10 +120,8 @@ void loop()
     Serial.print("\n");
 
     // Send data to ThingSpeak
-    ThingSpeak.setField(1, humidity);
-    ThingSpeak.setField(2, outdoorTemp);
-    ThingSpeak.setField(3, dateTime);
-    ThingSpeak.setField(4, indoorTemp);
+    ThingSpeak.setField(1, officeHumidity);
+    ThingSpeak.setField(2, officeTemp);
 
     int x = ThingSpeak.writeFields(myChannelNumber, myWriteAPIKey);
     if(x == 200)
