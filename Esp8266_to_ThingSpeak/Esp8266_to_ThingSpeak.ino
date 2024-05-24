@@ -20,15 +20,15 @@ NTPClient: Retrieves the current time from an NTP server.
 
 DHT20 DHT;
 
-const char* ssid = "your_SSID";         // Replace with your network SSID (name)
-const char* password = "your_PASSWORD"; // Replace with your network password
+const char* ssid = "your_SSID";         // Replace with your network SSID (name).
+const char* password = "your_PASSWORD"; // Replace with your network password.
 
-unsigned long myChannelNumber = YOUR_CHANNEL_NUMBER;  // Replace with your ThingSpeak Channel Number
-const char* myWriteAPIKey = "YOUR_API_KEY";           // Replace with your ThingSpeak Write API Key
+unsigned long myChannelNumber = YOUR_CHANNEL_NUMBER;  // Replace with your ThingSpeak Channel Number.
+const char* myWriteAPIKey = "YOUR_API_KEY";           // Replace with your ThingSpeak Write API Key.
 
 WiFiClient client;
 WiFiUDP ntpUDP;
-NTPClient timeClient(ntpUDP, "pool.ntp.org", 0, 60000); // Update every 60 seconds
+NTPClient timeClient(ntpUDP, "pool.ntp.org", 0, 60000); // Update every 60 seconds.
 
 uint8_t count = 0;
 
@@ -41,7 +41,7 @@ void setup()
   Serial.println();
 
   Wire.begin();
-  DHT.begin();    //  ESP8266 default pins
+  DHT.begin();    //  ESP8266 default pins.
 
   WiFi.begin(ssid, password);
   Serial.print("Connecting to Wi-Fi");
@@ -55,7 +55,7 @@ void setup()
   ThingSpeak.begin(client);
 
   timeClient.begin();
-  timeClient.setTimeOffset(0); // Adjust according to your timezone offset in seconds
+  timeClient.setTimeOffset(0); // Adjust according to your timezone offset in seconds.
 
   delay(1000);
 }
@@ -81,7 +81,7 @@ void loop()
 
     float humidity = DHT.getHumidity();
     float outdoorTemp = DHT.getTemperature();
-    float indoorTemp = 24.0; // Fixed indoor temperature
+    float indoorTemp = 24.0; // Fixed indoor temperature.
     String dateTime = timeClient.getFormattedTime(); // Format as HH:MM:SS
 
     Serial.print("DHT20 \t");
