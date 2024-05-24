@@ -1,3 +1,6 @@
+// Interacts with a Wemos D1 ESP8266 module to retrieve DHT20 sensor information and upload on
+// ThingSpeak server for further information processing.
+
 #include <Wire.h>
 #include "DHT20.h"
 #include <ESP8266WiFi.h>
