@@ -1,3 +1,8 @@
+// This code interacts with a T-Beam ESP8266 MCU and pulls information from a thingspeak channel
+// These informations are regarding the temperature and humidity of two different regions of the
+// robotics lab and assign an angle to a servo motor to adjust thermostat levels.
+
+
 #include <Wire.h>
 #include <WiFi.h>
 #include <ThingSpeak.h>
@@ -8,12 +13,12 @@
 Servo tempKnob;
 
 // Wi-Fi credentials
-const char* ssid = "WIFI NAME";
-const char* password = "WIFI PASSWORD";
+const char* ssid = "NAME";
+const char* password = "PASS";
 
 // ThingSpeak details
-unsigned long myChannelNumber =  0123456789;  // Replace with your ThingSpeak Channel Number
-const char* myReadAPIKey = "YOUR_API_KEY";       // Replace with your ThingSpeak Read API Key
+unsigned long myChannelNumber =  CHAN NUM;  // Replace with your ThingSpeak Channel Number
+const char* myReadAPIKey = "READ KEY";       // Replace with your ThingSpeak Read API Key
 
 // Servo GPIO pin
 const int servoPin = 2;
